@@ -28,6 +28,7 @@ begin
     # NOTE: Use #has_key? so data bags can nil out existing values
     node.default[:reprepro][key] = apt_repo[key] if apt_repo.has_key?(key)
   end
+  node.default[:reprepro][:pgp_email] = apt_repo['pgp']['email']
 rescue Net::HTTPServerException
   Chef::Log.warn 'Data bag not found. Using default attribute settings!'
   include_recipe 'gpg'
@@ -98,6 +99,7 @@ if(apt_repo)
   end
 else
   pgp_key = "#{node[:reprepro][:repo_dir]}/#{node[:gpg][:name][:email]}.gpg.key"
+  node.default[:reprepro][:pgp_email] = node[:gpg][:name][:email]
 
   execute "sudo -u #{node[:gpg][:user]} -i gpg --armor --export #{node[:gpg][:name][:real]} > #{pgp_key}" do
     creates pgp_key
@@ -114,18 +116,18 @@ else
     subscribes :run, resources(:file => pgp_key), :immediately
     environment "GNUPGHOME" => node[:reprepro][:gnupg_home]
   end
+end
 
-  if(node[:reprepro][:enable_repository_on_host])
-    execute "apt-key add #{pgp_key}" do
-      action :nothing
-      subscribes :run, resources(:file => pgp_key), :immediately
-    end
+if(node[:reprepro][:enable_repository_on_host])
+  execute "apt-key add #{pgp_key}" do
+    action :nothing
+    subscribes :run, resources(:file => pgp_key), :immediately
+  end
 
-    apt_repository "reprepro" do
-      uri "file://#{node[:reprepro][:repo_dir]}"
-      distribution node.lsb.codename
-      components ["main"]
-    end
+  apt_repository "reprepro" do
+    uri "file://#{node[:reprepro][:repo_dir]}"
+    distribution node.lsb.codename
+    components ["main"]
   end
 end
 
