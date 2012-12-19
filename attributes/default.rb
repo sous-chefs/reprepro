@@ -1,0 +1,13 @@
+default[:reprepro][:fqdn] = fqdn
+default[:reprepro][:listen_port] = 9000
+default[:reprepro][:repo_dir] = "/srv/apt"
+default[:reprepro][:incoming] = "/srv/apt_incoming"
+default[:reprepro][:description] = "APT repository at #{fqdn}"
+default[:reprepro][:codenames] = [node.lsb.codename]
+default[:reprepro][:allow] = []
+default[:reprepro][:pgp][:email] = "apt@#{domain}"
+default[:reprepro][:pulls][:name] = node.lsb.codename
+default[:reprepro][:pulls][:from] = node.lsb.codename
+default[:reprepro][:pulls][:component] = "main"
+default[:reprepro][:architectures] = %w[amd64]
+default[:reprepro][:gnupg_home] = '/root/.gnupg'
