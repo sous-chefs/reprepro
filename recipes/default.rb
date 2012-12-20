@@ -18,6 +18,8 @@
 # limitations under the License.
 #
 
+node.set[:apache][:listen_ports] = node[:apache][:listen_ports] | Array(node[:reprepro][:listen_port])
+
 include_recipe "build-essential"
 include_recipe "apache2"
 
@@ -119,6 +121,8 @@ else
 end
 
 if(node[:reprepro][:enable_repository_on_host])
+  include_recipe 'apt'
+
   execute "apt-key add #{pgp_key}" do
     action :nothing
     subscribes :run, resources(:file => pgp_key), :immediately

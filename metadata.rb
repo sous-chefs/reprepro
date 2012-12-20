@@ -9,5 +9,6 @@ version          "0.2.4"
 depends "build-essential"
 depends "apache2"
 recommends "gpg"
+recommends "apt"
 
 recipe "reprepro", "Installs and configures reprepro for an apt repository"
