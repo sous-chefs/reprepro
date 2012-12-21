@@ -125,7 +125,11 @@ if(node[:reprepro][:enable_repository_on_host])
 
   execute "apt-key add #{pgp_key}" do
     action :nothing
-    subscribes :run, resources(:file => pgp_key), :immediately
+    if(apt_repo)
+      subscribes :run, resources(:template => pgp_key), :immediately
+    else
+      subscribes :run, resources(:file => pgp_key), :immediately
+    end
   end
 
   apt_repository "reprepro" do
