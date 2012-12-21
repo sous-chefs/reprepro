@@ -35,8 +35,8 @@ from the data bag. The following attributes are used, in the
 * `pgp_email` - the email address of the pgp key
 * `pgp_fingerprint` - the finger print of the pgp key
 
-Data Bag
---------
+Data Bag based repository
+-------------------------
 
 Create a data bag to store the repository information. It should be
 named `reprepro`. The recipe uses the `main` data bag item.
@@ -91,6 +91,15 @@ named `reprepro`. The recipe uses the `main` data bag item.
   (replace line endings with \n)
 * `pulls`: hash used in the pulls configuration.
 * `architectures`: array of architectures to create in distributions configuration
+
+Attribute based configuration
+-----------------------------
+
+Configuration of the repository can also be driven via
+attributes. The same keys available for the data bag are
+available via node attributes with the exception of the
+`pgp` hash. Using attribute based configuration will have
+a PGP key pair auto generated on the node when it is built.
 
 LICENSE AND AUTHOR
 ==================
