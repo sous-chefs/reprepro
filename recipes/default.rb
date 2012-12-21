@@ -23,18 +23,20 @@ node.set[:apache][:listen_ports] = node[:apache][:listen_ports] | Array(node[:re
 include_recipe "build-essential"
 include_recipe "apache2"
 
-begin
-  apt_repo = data_bag_item("reprepro", "main")
-  node[:reprepro].keys.each do |key|
-    next if key.to_sym == :pgp
-    # NOTE: Use #has_key? so data bags can nil out existing values
-    node.default[:reprepro][key] = apt_repo[key] if apt_repo.has_key?(key)
+unless(node[:reprepro][:disable_databag])
+  begin
+    apt_repo = data_bag_item("reprepro", "main")
+    node[:reprepro].keys.each do |key|
+      next if key.to_sym == :pgp
+      # NOTE: Use #has_key? so data bags can nil out existing values
+      node.default[:reprepro][key] = apt_repo[key] if apt_repo.has_key?(key)
+    end
+    node.default[:reprepro][:pgp_email] = apt_repo['pgp']['email']
+    node.default[:reprepro][:pgp_fingerprint] = apt_repo['pgp']['fingerprint']
+  rescue Net::HTTPServerException
+    Chef::Log.warn 'Data bag not found. Using default attribute settings!'
+    include_recipe 'gpg'
   end
-  node.default[:reprepro][:pgp_email] = apt_repo['pgp']['email']
-  node.default[:reprepro][:pgp_fingerprint] = apt_repo['pgp']['fingerprint']
-rescue Net::HTTPServerException
-  Chef::Log.warn 'Data bag not found. Using default attribute settings!'
-  include_recipe 'gpg'
 end
 
 ruby_block "save node data" do
