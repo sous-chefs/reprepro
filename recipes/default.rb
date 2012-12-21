@@ -31,6 +31,7 @@ begin
     node.default[:reprepro][key] = apt_repo[key] if apt_repo.has_key?(key)
   end
   node.default[:reprepro][:pgp_email] = apt_repo['pgp']['email']
+  node.default[:reprepro][:pgp_fingerprint] = apt_repo['pgp']['fingerprint']
 rescue Net::HTTPServerException
   Chef::Log.warn 'Data bag not found. Using default attribute settings!'
   include_recipe 'gpg'
@@ -87,7 +88,7 @@ if(apt_repo)
     user "root"
     cwd "/root"
     environment "GNUPGHOME" => node[:reprepro][:gnupg_home]
-    not_if "gpg --list-secret-keys --fingerprint #{node[:reprepro][:pgp_email]} | egrep -qx '.*Key fingerprint = #{node[:reprepro][:pgp_fingerprint]}'"
+    not_if "GNUPGHOME=/root/.gnupg gpg --list-secret-keys --fingerprint #{node[:reprepro][:pgp_email]} | egrep -qx '.*Key fingerprint = #{node[:reprepro][:pgp_fingerprint]}'"
   end
 
   template pgp_key do
