@@ -1,4 +1,4 @@
-<VirtualHost *:80>
+<VirtualHost *:<%= node[:reprepro][:listen_port] %>>
   ServerAdmin <%= node[:reprepro][:pgp_email] %>
   ServerName <%= node[:reprepro][:fqdn] %>
   ServerAlias <%= node[:hostname] %> <%= node[:fqdn] %>
