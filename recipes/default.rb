@@ -18,21 +18,21 @@
 # limitations under the License.
 #
 
-node.set[:apache][:listen_ports] = node[:apache][:listen_ports] | Array(node[:reprepro][:listen_port])
+node.set['apache']['listen_ports'] = node['apache']['listen_ports'] | Array(node['reprepro']['listen_port'])
 
 include_recipe "build-essential"
 include_recipe "apache2"
 
-unless(node[:reprepro][:disable_databag])
+unless(node['reprepro']['disable_databag'])
   begin
     apt_repo = data_bag_item("reprepro", "main")
-    node[:reprepro].keys.each do |key|
+    node['reprepro'].keys.each do |key|
       next if key.to_sym == :pgp
       # NOTE: Use #has_key? so data bags can nil out existing values
-      node.default[:reprepro][key] = apt_repo[key] if apt_repo.has_key?(key)
+      node.default['reprepro'][key] = apt_repo[key] if apt_repo.has_key?(key)
     end
-    node.default[:reprepro][:pgp_email] = apt_repo['pgp']['email']
-    node.default[:reprepro][:pgp_fingerprint] = apt_repo['pgp']['fingerprint']
+    node.default['reprepro']['pgp_email'] = apt_repo['pgp']['email']
+    node.default['reprepro']['pgp_fingerprint'] = apt_repo['pgp']['fingerprint']
   rescue Net::HTTPServerException
     Chef::Log.warn 'Data bag not found. Using default attribute settings!'
     include_recipe 'gpg'
@@ -50,7 +50,7 @@ end
   package pkg
 end
 
-[ node[:reprepro][:repo_dir], node[:reprepro][:incoming] ].each do |dir|
+[ node['reprepro']['repo_dir'], node['reprepro']['incoming'] ].each do |dir|
   directory dir do
     owner "nobody"
     group "nogroup"
@@ -59,7 +59,7 @@ end
 end
 
 %w{ conf db dists pool tarballs }.each do |dir|
-  directory "#{node[:reprepro][:repo_dir]}/#{dir}" do
+  directory "#{node['reprepro']['repo_dir']}/#{dir}" do
     owner "nobody"
     group "nogroup"
     mode "0755"
@@ -67,30 +67,30 @@ end
 end
 
 %w{ distributions incoming pulls }.each do |conf|
-  template "#{node[:reprepro][:repo_dir]}/conf/#{conf}" do
+  template "#{node['reprepro']['repo_dir']}/conf/#{conf}" do
     source "#{conf}.erb"
     mode "0644"
     owner "nobody"
     group "nogroup"
     variables(
-      :allow => node[:reprepro][:allow],
-      :codenames => node[:reprepro][:codenames],
-      :architectures => node[:reprepro][:architectures],
-      :incoming => node[:reprepro][:incoming],
-      :pulls => node[:reprepro][:pulls]
+      :allow => node['reprepro']['allow'],
+      :codenames => node['reprepro']['codenames'],
+      :architectures => node['reprepro']['architectures'],
+      :incoming => node['reprepro']['incoming'],
+      :pulls => node['reprepro']['pulls']
     )
   end
 end
 
 if(apt_repo)
-  pgp_key = "#{apt_repo["repo_dir"]}/#{node[:reprepro][:pgp_email]}.gpg.key"
+  pgp_key = "#{apt_repo["repo_dir"]}/#{node['reprepro']['pgp_email']}.gpg.key"
 
   execute "import packaging key" do
     command "/bin/echo -e '#{apt_repo["pgp"]["private"]}' | gpg --import -"
     user "root"
     cwd "/root"
-    environment "GNUPGHOME" => node[:reprepro][:gnupg_home]
-    not_if "GNUPGHOME=/root/.gnupg gpg --list-secret-keys --fingerprint #{node[:reprepro][:pgp_email]} | egrep -qx '.*Key fingerprint = #{node[:reprepro][:pgp_fingerprint]}'"
+    environment "GNUPGHOME" => node['reprepro']['gnupg_home']
+    not_if "GNUPGHOME=/root/.gnupg gpg --list-secret-keys --fingerprint #{node['reprepro']['pgp_email']} | egrep -qx '.*Key fingerprint = #{node['reprepro']['pgp_fingerprint']}'"
   end
 
   template pgp_key do
@@ -103,10 +103,10 @@ if(apt_repo)
     )
   end
 else
-  pgp_key = "#{node[:reprepro][:repo_dir]}/#{node[:gpg][:name][:email]}.gpg.key"
-  node.default[:reprepro][:pgp_email] = node[:gpg][:name][:email]
+  pgp_key = "#{node['reprepro']['repo_dir']}/#{node['gpg']['name']['email']}.gpg.key"
+  node.default['reprepro']['pgp_email'] = node['gpg']['name']['email']
 
-  execute "sudo -u #{node[:gpg][:user]} -i gpg --armor --export #{node[:gpg][:name][:real]} > #{pgp_key}" do
+  execute "sudo -u #{node['gpg']['user']} -i gpg --armor --export #{node['gpg']['name']['real']} > #{pgp_key}" do
     creates pgp_key
   end
 
@@ -116,37 +116,37 @@ else
     group "nogroup"
   end
 
-  execute "reprepro -Vb #{node[:reprepro][:repo_dir]} export" do
+  execute "reprepro -Vb #{node['reprepro']['repo_dir']} export" do
     action :nothing
-    subscribes :run, resources(:file => pgp_key), :immediately
-    environment "GNUPGHOME" => node[:reprepro][:gnupg_home]
+    subscribes :run, "file[#{pgp_key}]", :immediately
+    environment "GNUPGHOME" => node['reprepro']['gnupg_home']
   end
 end
 
-if(node[:reprepro][:enable_repository_on_host])
+if(node['reprepro']['enable_repository_on_host'])
   include_recipe 'apt'
 
   execute "apt-key add #{pgp_key}" do
     action :nothing
     if(apt_repo)
-      subscribes :run, resources(:template => pgp_key), :immediately
+      subscribes :run, "template[#{pgp_key}]", :immediately
     else
-      subscribes :run, resources(:file => pgp_key), :immediately
+      subscribes :run, "file[#{pgp_key}]", :immediately
     end
   end
 
   apt_repository "reprepro" do
-    uri "file://#{node[:reprepro][:repo_dir]}"
-    distribution node.lsb.codename
+    uri "file://#{node['reprepro']['repo_dir']}"
+    distribution node['lsb']['codename']
     components ["main"]
   end
 end
 
-template "#{node[:apache][:dir]}/sites-available/apt_repo.conf" do
+template "#{node['apache']['dir']}/sites-available/apt_repo.conf" do
   source "apt_repo.conf.erb"
   mode 0644
   variables(
-    :repo_dir => node[:reprepro][:repo_dir]
+    :repo_dir => node['reprepro']['repo_dir']
   )
 end
 
