@@ -20,6 +20,9 @@
 
 node.set[:apache][:listen_ports] = node[:apache][:listen_ports] | Array(node[:reprepro][:listen_port])
 
+# TODO remove, this was added because a bug in previous versions introduced integer values to this array
+node.set[:apache][:listen_ports] = node[:apache][:listen_ports].map{|p| p.to_s}.uniq
+
 include_recipe "build-essential"
 include_recipe "apache2"
 
