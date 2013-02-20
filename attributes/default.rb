@@ -1,5 +1,5 @@
 default[:reprepro][:fqdn] = fqdn
-default[:reprepro][:listen_port] = 80
+default[:reprepro][:listen_port] = '80'
 default[:reprepro][:repo_dir] = "/srv/apt"
 default[:reprepro][:incoming] = "/srv/apt_incoming"
 default[:reprepro][:description] = "APT repository at #{fqdn}"
