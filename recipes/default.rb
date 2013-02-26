@@ -20,9 +20,6 @@
 
 node.set[:apache][:listen_ports] = node[:apache][:listen_ports] | Array(node[:reprepro][:listen_port])
 
-include_recipe "build-essential"
-include_recipe "apache2"
-
 unless(node[:reprepro][:disable_databag])
   begin
     apt_repo = data_bag_item("reprepro", "main")
@@ -150,8 +147,4 @@ template "#{node[:apache][:dir]}/sites-available/apt_repo.conf" do
   )
 end
 
-apache_site "apt_repo.conf"
-
-apache_site "000-default" do
-  enable false
-end
+include_recipe 'reprepro::apache2' if node[:reprepro][:enable_apache2]
