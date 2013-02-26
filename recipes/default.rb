@@ -44,6 +44,7 @@ ruby_block "save node data" do
     node.save
   end
   action :create
+  not_if { ::Chef::Config[:solo] }
 end
 
 %w{apt-utils dpkg-dev reprepro debian-keyring devscripts dput}.each do |pkg|
