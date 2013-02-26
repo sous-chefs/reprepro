@@ -14,7 +14,7 @@ REQUIREMENTS
 
 Platform: Debian or Ubuntu.
 
-Requires Chef 0.8.x+, client/server. Does not work with Chef Solo due
+Requires Chef 0.8.x+, client/server. May not work with Chef Solo due
 to data bag use.
 
 You'll need to generate the PGP key separately and provide the data in
@@ -52,7 +52,7 @@ named `reprepro`. The recipe uses the `main` data bag item.
       ],
       "allow": [
         "unstable>sid", "stable>squeeze"
-      ]
+      ],
       "pgp": {
         "email": "packages@example.com",
         "fingerprint": "PGP Fingerprint for the key",
@@ -82,7 +82,7 @@ named `reprepro`. The recipe uses the `main` data bag item.
   with allow for the Allow directive in the incoming configuration
 * `allow`: [optional] array of additional codenames to use in the incoming
   configuration
-* `pgp`: hash of options for the pgp setup. the 
+* `pgp`: hash of options for the pgp setup. the
 * `pgp['email']`: email address of the signing key
 * `pgp['fingerprint]`: fingerprint of the PGP key
 * `pgp['public]`: the public PGP key, should be a single line
@@ -104,9 +104,10 @@ a PGP key pair auto generated on the node when it is built.
 LICENSE AND AUTHOR
 ==================
 
-Author: Joshua Timberman (<joshua@opscode.com>)
+- Author: Joshua Timberman (<joshua@opscode.com>)
+- Author: Chris Roberts (<chrisroberts.code@gmail.com>)
 
-Copyright 2010, Opscode, Inc.
+Copyright 2013, Opscode, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
