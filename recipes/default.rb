@@ -139,12 +139,4 @@ if(node[:reprepro][:enable_repository_on_host])
   end
 end
 
-template "#{node[:apache][:dir]}/sites-available/apt_repo.conf" do
-  source "apt_repo.conf.erb"
-  mode 0644
-  variables(
-    :repo_dir => node[:reprepro][:repo_dir]
-  )
-end
-
 include_recipe 'reprepro::apache2' if node[:reprepro][:enable_apache2]
