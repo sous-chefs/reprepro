@@ -18,12 +18,9 @@
 # limitations under the License.
 #
 
-node.set['apache']['listen_ports'] = node['apache']['listen_ports'] | Array(node['reprepro']['listen_port'])
-
 include_recipe "build-essential"
-include_recipe "apache2"
 
-unless(node['reprepro']['disable_databag'])
+unless node['reprepro']['disable_databag']
   begin
     apt_repo = data_bag_item("reprepro", "main")
     node['reprepro'].keys.each do |key|
@@ -56,6 +53,7 @@ end
     owner "nobody"
     group "nogroup"
     mode "0755"
+    recursive true
   end
 end
 
@@ -83,7 +81,7 @@ end
   end
 end
 
-if(apt_repo)
+if apt_repo
   pgp_key = "#{apt_repo["repo_dir"]}/#{node['reprepro']['pgp_email']}.gpg.key"
 
   execute "import packaging key" do
@@ -124,7 +122,7 @@ else
   end
 end
 
-if(node['reprepro']['enable_repository_on_host'])
+if node['reprepro']['enable_repository_on_host']
   include_recipe 'apt'
 
   execute "apt-key add #{pgp_key}" do
@@ -141,18 +139,4 @@ if(node['reprepro']['enable_repository_on_host'])
     distribution node['lsb']['codename']
     components ["main"]
   end
-end
-
-template "#{node['apache']['dir']}/sites-available/apt_repo.conf" do
-  source "apt_repo.conf.erb"
-  mode 0644
-  variables(
-    :repo_dir => node['reprepro']['repo_dir']
-  )
-end
-
-apache_site "apt_repo.conf"
-
-apache_site "000-default" do
-  enable false
 end
