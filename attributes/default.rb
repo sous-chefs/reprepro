@@ -14,7 +14,7 @@ default['reprepro']['enable_repository_on_host'] = false
 default['reprepro']['disable_databag'] = false
 
 default['reprepro']['nginx']['listen_port'] = 80
-default['reprepro']['nginx']['server_name'] = node['reprepro']['fqdn']
+default['reprepro']['nginx']['server_names'] = [node['reprepro']['fqdn']]
 default['reprepro']['nginx']['ssl'] = false
 default['reprepro']['nginx']['ssl_certificate'] = "#{node['nginx']['dir']}/ssl/#{node['reprepro']['fqdn']}.crt"
 default['reprepro']['nginx']['ssl_certificate_key'] = "#{node['nginx']['dir']}/ssl/#{node['reprepro']['fqdn']}.key"

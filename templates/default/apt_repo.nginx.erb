@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name <%= node['reprepro']['fqdn'] %>;
+    server_name <%= node['reprepro']['nginx']['server_names'].join(' ') || node['reprepro']['fqdn'] %>;
 
     access_log /var/log/nginx/apt-access.log;
     error_log /var/log/nginx/apt-error.log;
@@ -22,7 +22,7 @@ server {
 <% if node['reprepro']['ssl'] %>
 server {
     listen 443 ssl;
-    server_name <%= node['reprepro']['fqdn'] %>;
+    server_name <%= node['reprepro']['nginx']['server_names'].join(' ') || node['reprepro']['fqdn'] %>;
 
     access_log /var/log/nginx/apt-access.log;
     error_log /var/log/nginx/apt-error.log;
