@@ -9,5 +9,6 @@ SignWith: <%= node[:reprepro][:pgp_email] %>
 <%   unless @pulls["name"] == dist -%>
 Pull: <%= dist %>
 <%   end -%>
+
 <% end -%>
 
