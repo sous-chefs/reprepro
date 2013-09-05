@@ -11,8 +11,8 @@ supports "ubuntu"
 supports "debian"
 
 depends "build-essential"
-recommends "apache2"
-recommends "nginx"
+depends "apache2"
+depends "nginx"
 recommends "gpg"
 recommends "apt"
 

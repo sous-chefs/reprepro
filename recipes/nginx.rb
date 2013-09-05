@@ -14,6 +14,6 @@ end
 
 nginx_site "apt_repo"
 
-nginx_site "000-default" do
+nginx_site "default" do
   enable false
 end

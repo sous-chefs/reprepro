@@ -140,3 +140,5 @@ if node['reprepro']['enable_repository_on_host']
     components ["main"]
   end
 end
+
+include_recipe "reprepro::#{node['reprepro']['server']}"

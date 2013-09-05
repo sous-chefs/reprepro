@@ -17,3 +17,5 @@ default['reprepro']['nginx']['listen_port'] = 80
 default['reprepro']['nginx']['ssl'] = false
 default['reprepro']['nginx']['ssl_certificate'] = "#{node['nginx']['dir']}/ssl/#{node['reprepro']['fqdn']}.crt"
 default['reprepro']['nginx']['ssl_certificate_key'] = "#{node['nginx']['dir']}/ssl/#{node['reprepro']['fqdn']}.key"
+
+default['reprepro']['server'] = 'apache'
