@@ -141,4 +141,8 @@ if node['reprepro']['enable_repository_on_host']
   end
 end
 
-include_recipe "reprepro::#{node['reprepro']['server']}"
+begin
+  include_recipe "reprepro::#{node['reprepro']['server']}"
+rescue Chef::Exceptions::RecipeNotFound
+  Chef::Log.warn "Missing recipe for #{node['reprepro']['server']}, only 'nginx'or 'apache2' are available"
+end
