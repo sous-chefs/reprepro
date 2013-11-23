@@ -1,8 +1,8 @@
 def load_current_resource
-  unless(new_resource.package)
+  unless new_resource.package
     new_resource.package new_resource.name
   end
-  unless(new_resource.distribution)
+  unless new_resource.distribution
     new_resource.distribution node['lsb']['codename']
   end
 end
@@ -23,7 +23,7 @@ action :add do
 end
 
 action :remove do
-  if(::File.exists?(new_resource.package))
+  if ::File.exists?(new_resource.package)
     p_name = %x{dpkg-deb -f #{new_resource.package} package}.strip
   else
     p_name = ::File.basename(new_resource.package.sub('.deb', ''))

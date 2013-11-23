@@ -12,3 +12,10 @@ default['reprepro']['architectures'] = %w(i386 amd64)
 default['reprepro']['gnupg_home'] = '/root/.gnupg'
 default['reprepro']['enable_repository_on_host'] = false
 default['reprepro']['disable_databag'] = false
+
+default['reprepro']['nginx']['listen_port'] = 80
+default['reprepro']['nginx']['ssl'] = false
+default['reprepro']['nginx']['ssl_certificate'] = "#{node['nginx']['dir']}/ssl/#{node['reprepro']['fqdn']}.crt"
+default['reprepro']['nginx']['ssl_certificate_key'] = "#{node['nginx']['dir']}/ssl/#{node['reprepro']['fqdn']}.key"
+
+default['reprepro']['server'] = 'apache'
