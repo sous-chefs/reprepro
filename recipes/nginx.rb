@@ -18,9 +18,9 @@
 # limitations under the License.
 #
 
-# The recipe does not assume how you install nginx
-# and your certificate if you use them
-# do that in a role / wrapper cookbook
+# The recipe does not assume how you install nginx certificate if you use ssl
+
+include_recipe "nginx"
 
 template "#{node[:nginx][:dir]}/sites-available/apt_repo" do
   source "apt_repo.nginx.erb"
