@@ -2,6 +2,9 @@ reprepro Cookbook CHANGELOG
 ===========================
 This file is used to list changes made in each version of the reprepro cookbook.
 
+v0.4.1
+------
+- Allow option to use nginx (thanks [gilles](https://github.com/gilles))
 
 v0.4.0
 ------
