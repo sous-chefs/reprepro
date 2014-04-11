@@ -48,27 +48,27 @@ package %w(apt-utils dpkg-dev reprepro debian-keyring devscripts dput)
 
 [node['reprepro']['repo_dir'], node['reprepro']['incoming']].each do |dir|
   directory dir do
-    owner 'nobody'
-    group 'nogroup'
-    mode '0755'
+    owner node['reprepro']['owner']
+    group node['reprepro']['group']
+    mode node['reprepro']['dirmode']
     recursive true
   end
 end
 
 %w(conf db dists pool tarballs).each do |dir|
   directory "#{node['reprepro']['repo_dir']}/#{dir}" do
-    owner 'nobody'
-    group 'nogroup'
-    mode '0755'
+    owner node['reprepro']['owner']
+    group node['reprepro']['group']
+    mode node['reprepro']['dirmode']
   end
 end
 
 %w(distributions incoming pulls).each do |conf|
   template "#{node['reprepro']['repo_dir']}/conf/#{conf}" do
     source "#{conf}.erb"
-    mode '0644'
-    owner 'nobody'
-    group 'nogroup'
+    owner node['reprepro']['owner']
+    group node['reprepro']['group']
+    mode node['reprepro']['filemode']
     variables(
       allow: node['reprepro']['allow'],
       codenames: node['reprepro']['codenames'],
@@ -82,19 +82,19 @@ end
 if apt_repo
   pgp_key = "#{apt_repo['repo_dir']}/#{node['reprepro']['pgp_email']}.gpg.key"
 
-  execute 'import packaging key' do
-    command "/bin/echo -e '#{apt_repo['pgp']['private']}' | gpg --import -"
-    user 'root'
-    cwd '/root'
-    environment 'GNUPGHOME' => node['reprepro']['gnupg_home']
-    not_if "GNUPGHOME=/root/.gnupg gpg --list-secret-keys --fingerprint #{node['reprepro']['pgp_email']} | egrep -qx '.*Key fingerprint = #{node['reprepro']['pgp_fingerprint']}'"
+  apt_repo["pgp"]["users"].each do |pgpuser|
+    execute "import packaging key for #{pgpuser}" do
+      user node['reprepro']['owner']
+      command "/bin/echo -e '#{apt_repo["pgp"]["private"]}' | su -l -c \'gpg --import -\' #{pgpuser}"
+      not_if "su -l -c \"gpg --list-secret-keys --fingerprint #{apt_repo['pgp']['email']} | egrep -qx '.*Key fingerprint = " + apt_repo['pgp']['fingerprint'] + "'\" #{pgpuser}"
+    end
   end
 
   template pgp_key do
-    source 'pgp_key.erb'
-    mode '0644'
-    owner 'nobody'
-    group 'nogroup'
+    source "pgp_key.erb"
+    owner node['reprepro']['owner']
+    group node['reprepro']['group']
+    mode node['reprepro']['filemode']
     variables(
       pgp_public: apt_repo['pgp']['public']
     )
@@ -103,17 +103,17 @@ else
   pgp_key = "#{node['reprepro']['repo_dir']}/#{node['gpg']['name']['email']}.gpg.key"
   node.default['reprepro']['pgp_email'] = node['gpg']['name']['email']
 
-  execute "sudo -u #{node['gpg']['user']} -i gpg --armor --export #{node['gpg']['name']['real']} > #{pgp_key}" do
+  execute "su -l -c \'gpg --armor --export #{node['gpg']['name']['real']} > #{pgp_key}\' #{node['gpg']['user']}" do
     creates pgp_key
   end
 
   file pgp_key do
-    mode '0644'
-    owner 'nobody'
-    group 'nogroup'
+    owner node['reprepro']['owner']
+    group node['reprepro']['group']
+    mode node['reprepro']['filemode']
   end
 
-  execute "reprepro -Vb #{node['reprepro']['repo_dir']} export" do
+  execute "su -l -c \'reprepro -Vb #{node['reprepro']['repo_dir']} export\' #{node['reprepro']['owner']}" do
     action :nothing
     subscribes :run, "file[#{pgp_key}]", :immediately
     environment 'GNUPGHOME' => node['reprepro']['gnupg_home']
