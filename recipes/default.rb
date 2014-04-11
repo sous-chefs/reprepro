@@ -117,6 +117,7 @@ else
     action :nothing
     subscribes :run, "file[#{pgp_key}]", :immediately
     environment 'GNUPGHOME' => node['reprepro']['gnupg_home']
+    not_if "reprepro -Vb #{node['reprepro']['repo_dir']} check"
   end
 end
 
