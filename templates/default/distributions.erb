@@ -4,6 +4,7 @@ Label: apt repository
 Codename: <%= dist %>
 Architectures: <%= @architectures.join(" ") %>
 Components: <%= @pulls["component"] %>
+UDebComponents: <%= @pulls["component"] %>
 Description: <%= node[:reprepro][:description] %>
 SignWith: <%= node[:reprepro][:pgp_email] %>
 <%   unless @pulls["name"] == dist -%>
