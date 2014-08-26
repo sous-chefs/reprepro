@@ -30,7 +30,7 @@ template "#{node['apache']['dir']}/sites-available/apt_repo.conf" do
   )
 end
 
-apache_site "apt_repo.conf" do
+apache_site "apt_repo" do
   notifies :reload, "service[apache2]", :delayed
 end
 
