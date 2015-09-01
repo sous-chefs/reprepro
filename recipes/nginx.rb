@@ -20,21 +20,21 @@
 
 # The recipe does not assume how you install nginx certificate if you use ssl
 
-include_recipe "nginx"
+include_recipe 'nginx'
 
 template "#{node[:nginx][:dir]}/sites-available/apt_repo" do
-  source "apt_repo.nginx.erb"
+  source 'apt_repo.nginx.erb'
   mode 0644
-  owner "root"
-  group "root"
+  owner 'root'
+  group 'root'
   variables(
-      :repo_dir => node['reprepro']['repo_dir']
+    repo_dir: node['reprepro']['repo_dir']
   )
-  notifies :reload, resources(:service => 'nginx')
+  notifies :reload, resources(service: 'nginx')
 end
 
-nginx_site "apt_repo"
+nginx_site 'apt_repo'
 
-nginx_site "default" do
+nginx_site 'default' do
   enable false
 end
