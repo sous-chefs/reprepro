@@ -24,7 +24,7 @@ include_recipe 'nginx'
 
 template "#{node[:nginx][:dir]}/sites-available/apt_repo" do
   source 'apt_repo.nginx.erb'
-  mode 0644
+  mode '0644'
   owner 'root'
   group 'root'
   variables(

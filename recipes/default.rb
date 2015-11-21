@@ -110,7 +110,7 @@ else
   end
 
   file pgp_key do
-    mode 0644
+    mode '0644'
     owner 'nobody'
     group 'nogroup'
   end
