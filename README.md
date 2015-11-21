@@ -20,7 +20,6 @@ See the reprepro documentation for more information about reprepro itself, inclu
 
 You'll need to generate the PGP key separately and provide the data in the databag.
 
-
 ## Attributes
 Attributes in this cookbook are set via the default recipe with data from the data bag. The following attributes are used, in the `reprepro` namespace.
 - `fqdn` - the fqdn that would go in sources.list
