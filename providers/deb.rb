@@ -19,11 +19,11 @@ action :add do
 end
 
 action :remove do
-  if ::File.exist?(new_resource.package)
-    p_name = `dpkg-deb -f #{new_resource.package} package`.strip
-  else
-    p_name = ::File.basename(new_resource.package.sub('.deb', ''))
-  end
+  p_name = if ::File.exist?(new_resource.package)
+             `dpkg-deb -f #{new_resource.package} package`.strip
+           else
+             ::File.basename(new_resource.package.sub('.deb', ''))
+           end
   e = execute "Remove package (#{::File.basename(new_resource.package)})" do
     command "reprepro -Vb #{node['reprepro']['repo_dir']} remove #{new_resource.distribution} #{p_name}"
     environment 'GNUPGHOME' => node['reprepro']['gnupg_home']
