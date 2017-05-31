@@ -123,8 +123,6 @@ else
 end
 
 if node['reprepro']['enable_repository_on_host']
-  include_recipe 'apt'
-
   execute "apt-key add #{pgp_key}" do
     action :nothing
     if apt_repo
