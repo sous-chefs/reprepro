@@ -3,16 +3,14 @@ driver:
 
 provisioner:
   name: chef_zero
+  deprecations_as_errors: true
 
 platforms:
   - name: ubuntu-14.04
-    run_list:
-      - recipe[apt::default]
-  - name: ubuntu-12.04
-    run_list:
-      - recipe[apt::default]
+  - name: ubuntu-16.04
 
 suites:
   - name: default
-    run_list:
-      - recipe[reprepro::default]
+    run_list: test::default
+  - name: nginx
+    run_list: test::nginx
