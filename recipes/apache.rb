@@ -24,7 +24,7 @@ include_recipe 'apache2'
 
 template "#{node['apache']['dir']}/sites-available/apt_repo.conf" do
   source 'apt_repo.conf.erb'
-  mode 0644
+  mode '0644'
   variables(
     repo_dir: node['reprepro']['repo_dir']
   )
