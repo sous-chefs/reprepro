@@ -12,8 +12,6 @@ supports 'debian'
 
 depends 'build-essential'
 depends 'apache2'
-recommends 'gpg'
-recommends 'apt'
 depends 'chef_nginx'
 
 recipe 'reprepro', 'Installs and configures reprepro for an apt repository'
