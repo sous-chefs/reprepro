@@ -22,7 +22,7 @@
 
 include_recipe 'chef_nginx'
 
-template "#{node[:nginx][:dir]}/sites-available/apt_repo" do
+template "#{node['nginx']['dir']}/sites-available/apt_repo" do
   source 'apt_repo.nginx.erb'
   mode '0644'
   owner 'root'
