@@ -16,3 +16,7 @@ depends 'chef_nginx'
 depends 'compat_resource'
 
 recipe 'reprepro', 'Installs and configures reprepro for an apt repository'
+
+source_url 'https://github.com/tas50/reprepro'
+issues_url 'https://github.com/tas50/reprepro/issues'
+chef_version '>= 12.1' if respond_to?(:chef_version)
