@@ -11,11 +11,11 @@ See the reprepro documentation for more information about reprepro itself, inclu
 - Debian/Ubuntu
 
 ### Chef
-- Chef 11+
+- Chef 12.1+
 
 ### Cookbooks
 - build-essential
-- nginx
+- chef_nginx
 - apache2
 
 You'll need to generate the PGP key separately and provide the data in the databag.
