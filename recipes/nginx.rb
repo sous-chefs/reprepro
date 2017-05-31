@@ -30,7 +30,7 @@ template "#{node['nginx']['dir']}/sites-available/apt_repo" do
   variables(
     repo_dir: node['reprepro']['repo_dir']
   )
-  notifies :reload, resources(service: 'nginx')
+  notifies :reload, 'service[nginx]'
 end
 
 nginx_site 'apt_repo'
