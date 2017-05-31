@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-node.normal['apache']['listen_ports'] = node['apache']['listen_ports'] | Array(node['reprepro']['listen_port'])
+node.default['apache']['listen'] << node['reprepro']['listen']
 
 include_recipe 'apache2'
 
