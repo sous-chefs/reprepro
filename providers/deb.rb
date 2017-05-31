@@ -1,3 +1,5 @@
+use_inline_resources
+
 def load_current_resource
   new_resource.package new_resource.name unless new_resource.package
   new_resource.distribution node['lsb']['codename'] unless new_resource.distribution
