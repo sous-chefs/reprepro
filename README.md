@@ -1,33 +1,43 @@
 # reprepro Cookbook
+
 [![Build Status](https://travis-ci.org/tas50/reprepro.svg?branch=master)](http://travis-ci.org/tas50/reprepro) [![Cookbook Version](https://img.shields.io/cookbook/v/reprepro.svg)](https://supermarket.chef.io/cookbooks/reprepro)
 
 Sets up an APT repository suitable for using the reprepro tool to manage distributions and components.
 
 See the reprepro documentation for more information about reprepro itself, including the man(1) page in the package.
-- [http://mirrorer.alioth.debian.org/](http://mirrorer.alioth.debian.org/)
+
+- <http://mirrorer.alioth.debian.org/>
 
 ## Requirements
+
 ### Platforms
+
 - Debian/Ubuntu
 
 ### Chef
+
 - Chef 12.1+
 
 ### Cookbooks
+
 - build-essential
 - chef_nginx
 - apache2
+- gpg
 
 You'll need to generate the PGP key separately and provide the data in the databag.
 
 ## Attributes
+
 Attributes in this cookbook are set via the default recipe with data from the data bag. The following attributes are used, in the `reprepro` namespace.
+
 - `fqdn` - the fqdn that would go in sources.list
 - `description` - a description of the repository
 - `pgp_email` - the email address of the pgp key
 - `pgp_fingerprint` - the finger print of the pgp key
 
 ## Data Bag based repository
+
 Create a data bag to store the repository information. It should be named `reprepro`. The recipe uses the `main` data bag item.
 
 ```
@@ -84,9 +94,11 @@ Create a data bag to store the repository information. It should be named `repre
 - `architectures`: array of architectures to create in distributions configuration
 
 ## Attribute based configuration
+
 Configuration of the repository can also be driven via attributes. The same keys available for the data bag are available via node attributes with the exception of the `pgp` hash. Using attribute based configuration will have a PGP key pair auto generated on the node when it is built.
 
 ## License & Authors
+
 - Author: Joshua Timberman ([joshua@chef.io](mailto:joshua@chef.io))
 - Author: Chris Roberts ([chrisroberts.code@gmail.com](mailto:chrisroberts.code@gmail.com))
 

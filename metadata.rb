@@ -14,6 +14,7 @@ depends 'build-essential', '>= 3.0'
 depends 'apache2', '>= 3.0'
 depends 'chef_nginx', '>= 5.0'
 depends 'compat_resource', '>= 12.16'
+depends 'gpg'
 
 recipe 'reprepro', 'Installs and configures reprepro for an apt repository'
 
