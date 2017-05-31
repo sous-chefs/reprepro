@@ -20,7 +20,7 @@
 
 # The recipe does not assume how you install nginx certificate if you use ssl
 
-include_recipe 'nginx'
+include_recipe 'chef_nginx'
 
 template "#{node[:nginx][:dir]}/sites-available/apt_repo" do
   source 'apt_repo.nginx.erb'
