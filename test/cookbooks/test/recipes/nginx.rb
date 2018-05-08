@@ -1,4 +1,4 @@
-apt_update 'update'
+apt_update
 
 node.default['reprepro']['server'] = 'nginx'
 
