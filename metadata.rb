@@ -10,7 +10,7 @@ version '0.5.0'
 supports 'ubuntu'
 supports 'debian'
 
-depends 'build-essential', '>= 3.0'
+depends 'build-essential', '>= 5.0'
 depends 'apache2', '>= 3.0'
 depends 'chef_nginx', '>= 5.0'
 depends 'compat_resource', '>= 12.16'
