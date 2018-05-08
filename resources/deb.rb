@@ -1,5 +1,5 @@
 property :package, String, name_property: true
-property :distribution, [String, Array], default: lazy {node['lsb']['codename']}
+property :distribution, [String, Array], default: lazy { node['lsb']['codename'] }
 
 action :add do
   p_name = `dpkg-deb -f #{new_resource.package} package`.strip
