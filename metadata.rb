@@ -12,7 +12,6 @@ supports 'debian'
 
 depends 'build-essential', '>= 5.0'
 depends 'apache2', '>= 3.0'
-depends 'compat_resource', '>= 12.16'
 depends 'nginx', '>= 7.0'
 depends 'gpg'
 
@@ -20,4 +19,4 @@ recipe 'reprepro', 'Installs and configures reprepro for an apt repository'
 
 source_url 'https://github.com/tas50/reprepro'
 issues_url 'https://github.com/tas50/reprepro/issues'
-chef_version '>= 12.1' if respond_to?(:chef_version)
+chef_version '>= 13.0'
