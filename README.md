@@ -16,12 +16,12 @@ See the reprepro documentation for more information about reprepro itself, inclu
 
 ### Chef
 
-- Chef 12.1+
+- Chef 13+
 
 ### Cookbooks
 
 - build-essential
-- chef_nginx
+- nginx
 - apache2
 - gpg
 

@@ -2,6 +2,18 @@
 
 This file is used to list changes made in each version of the reprepro cookbook.
 
+## v1.0.0 (2018-05-08)
+
+- Remove compat_resource usage and require Chef 13+ instead
+- Use build_essential resource not the recipe to allow this to run without the cookbook on chef 14+
+- Convert the resource from a LWRP to a custom new_resource
+- Switch from chef_nginx to nginx cookbook and update the nginx_site usage for the new nginx_site custom resource
+- Use the correct action for ruby_block to resolve foodcritic warnings
+- Don't manually update the convert status on the resource. Let Chef do this the right way
+- Properly set the name_property on the resource
+- Property set the distribution default value in the resource
+- Switch from symbols to strings in the templates to resolve warnings
+
 ## v0.5.0 (2017-05-31)
 
 - Turned on use_inline_resource in the provider
