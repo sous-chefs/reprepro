@@ -40,7 +40,7 @@ ruby_block 'save node data' do
   block do
     node.save
   end
-  action :create
+  action :run
   not_if { ::Chef::Config[:solo] }
 end
 
