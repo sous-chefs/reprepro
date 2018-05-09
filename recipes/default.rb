@@ -25,7 +25,7 @@ unless node['reprepro']['disable_databag']
     apt_repo = data_bag_item('reprepro', 'main')
     node['reprepro'].keys.each do |key|
       next if key.to_sym == :pgp
-      # NOTE: Use #has_key? so data bags can nil out existing values
+      # NOTE: Use #key? so data bags can nil out existing values
       node.default['reprepro'][key] = apt_repo[key] if apt_repo.key?(key)
     end
     node.default['reprepro']['pgp_email'] = apt_repo['pgp']['email']
@@ -44,9 +44,7 @@ ruby_block 'save node data' do
   not_if { ::Chef::Config[:solo] }
 end
 
-%w(apt-utils dpkg-dev reprepro debian-keyring devscripts dput).each do |pkg|
-  package pkg
-end
+package %w(apt-utils dpkg-dev reprepro debian-keyring devscripts dput)
 
 [node['reprepro']['repo_dir'], node['reprepro']['incoming']].each do |dir|
   directory dir do
