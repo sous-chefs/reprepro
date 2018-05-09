@@ -1,6 +1,6 @@
 # reprepro Cookbook
 
-[![Build Status](https://travis-ci.org/tas50/reprepro.svg?branch=master)](http://travis-ci.org/tas50/reprepro) [![Cookbook Version](https://img.shields.io/cookbook/v/reprepro.svg)](https://supermarket.chef.io/cookbooks/reprepro)
+[![Build Status](https://travis-ci.org/sous-chefs/reprepro.svg?branch=master)](http://travis-ci.org/sous-chefs/reprepro) [![Cookbook Version](https://img.shields.io/cookbook/v/reprepro.svg)](https://supermarket.chef.io/cookbooks/reprepro)
 
 Sets up an APT repository suitable for using the reprepro tool to manage distributions and components.
 
