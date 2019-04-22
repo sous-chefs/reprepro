@@ -82,16 +82,16 @@ end
 if apt_repo
   pgp_key = "#{apt_repo['repo_dir']}/#{node['reprepro']['pgp_email']}.gpg.key"
 
-  apt_repo["pgp"]["users"].each do |pgpuser|
+  apt_repo['pgp']['users'].each do |pgpuser|
     execute "import packaging key for #{pgpuser}" do
       user node['reprepro']['owner']
-      command "/bin/echo -e '#{apt_repo["pgp"]["private"]}' | su -l -c \'gpg --import -\' #{pgpuser}"
+      command "/bin/echo -e '#{apt_repo['pgp']['private']}' | su -l -c \'gpg --import -\' #{pgpuser}"
       not_if "su -l -c \"gpg --list-secret-keys --fingerprint #{apt_repo['pgp']['email']} | egrep -qx '.*Key fingerprint = " + apt_repo['pgp']['fingerprint'] + "'\" #{pgpuser}"
     end
   end
 
   template pgp_key do
-    source "pgp_key.erb"
+    source 'pgp_key.erb'
     owner node['reprepro']['owner']
     group node['reprepro']['group']
     mode node['reprepro']['filemode']
