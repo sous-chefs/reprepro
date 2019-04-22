@@ -30,22 +30,22 @@ template "#{node['apache']['dir']}/sites-available/apt_repo.conf" do
   )
 end
 
-apache_site "apt_repo" do
-  notifies :reload, "service[apache2]", :delayed
+apache_site 'apt_repo' do
+  notifies :reload, 'service[apache2]', :delayed
 end
 
 apache_site '000-default' do
   enable false
-  notifies :reload, "service[apache2]", :delayed
+  notifies :reload, 'service[apache2]', :delayed
 end
 
-service "apache2" do
+service 'apache2' do
   supports [:reload, :restart, :start, :stop, :status]
   action [:enable, :start]
-  case node["platform"]
-  when "centos","redhat","fedora"
-    service_name "httpd"
+  case node['platform']
+  when 'centos', 'redhat', 'fedora'
+    service_name 'httpd'
   else
-    service_name "apache2"
+    service_name 'apache2'
   end
 end
