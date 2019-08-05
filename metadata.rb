@@ -19,4 +19,3 @@ depends 'nginx', '>= 7.0'
 depends 'gpg'
 
 recipe 'reprepro', 'Installs and configures reprepro for an apt repository'
-
