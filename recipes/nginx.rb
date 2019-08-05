@@ -1,9 +1,9 @@
 #
-# Cookbook Name:: reprepro
+# Cookbook:: reprepro
 # Recipe:: nginx
 #
 # Author:: Gilles Devaux <gilles.devaux@gmail.com>
-# Copyright 2013, Kwarter
+# Copyright:: 2013, Kwarter
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
