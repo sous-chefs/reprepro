@@ -10,7 +10,7 @@ Sets up an APT repository suitable for using the reprepro tool to manage distrib
 
 See the reprepro documentation for more information about reprepro itself, including the man(1) page in the package [http://mirrorer.alioth.debian.org/](http://mirrorer.alioth.debian.org/)
 
-## Help Wanted!
+## Help Wanted
 
 This repository has been archived for now, but if you want to help us with this cookbook drop by our slack channel #sous-chef on the chef community slack and let us know!
 
