@@ -10,6 +10,10 @@ Sets up an APT repository suitable for using the reprepro tool to manage distrib
 
 See the reprepro documentation for more information about reprepro itself, including the man(1) page in the package [http://mirrorer.alioth.debian.org/](http://mirrorer.alioth.debian.org/)
 
+## Help Wanted
+
+This repository has been archived for now, but if you want to help us with this cookbook drop by our slack channel #sous-chef on the chef community slack and let us know!
+
 ## Maintainers
 
 This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of Chef cookbook maintainers working together to maintain important cookbooks. If you’d like to know more please visit [sous-chefs.org](https://sous-chefs.org/) or come chat with us on the Chef Community Slack in [#sous-chefs](https://chefcommunity.slack.com/messages/C2V7B88SF).
