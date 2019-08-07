@@ -7,7 +7,7 @@ long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 source_url        'https://github.com/tas50/reprepro'
 issues_url        'https://github.com/tas50/reprepro/issues'
 chef_version      '>= 13.0'
-version           '1.0.0'
+version           '1.1.0'
 
 # Doesn't make sense to indicate support for non Debian platforms!
 supports 'ubuntu'
