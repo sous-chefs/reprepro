@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-node.default['apache']['listen'] << node['reprepro']['listen']
+node.default['apache']['listen'] = node['reprepro']['listen']
 
 include_recipe 'apache2'
 

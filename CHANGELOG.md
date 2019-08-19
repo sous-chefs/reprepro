@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the reprepro cookbook.
 
+## v1.1.0 (2019-08-08)
+
+- Migrate to circleci 2 orb
+- Fix for setting apache listen attribute
+
 ## v1.0.0 (2018-05-08)
 
 - Remove compat_resource usage and require Chef 13+ instead

@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe 'default recipe on Ubuntu 14.04' do
+describe 'default recipe on Ubuntu 18.04' do
   let(:chef_run) do
     ChefSpec::ServerRunner.new do |node|
-      node.automatic[:lsb][:codename] = 'trusty'
+      node.automatic[:lsb][:codename] = 'xenial'
     end.converge('reprepro::default')
   end
 
