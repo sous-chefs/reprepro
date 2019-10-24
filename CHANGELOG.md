@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the reprepro cookbook.
 
+## UNRELEASED
+
+- Require Chef Infra Client 14+ and remove the need for the build-essential cookbook
+- Remove unnecessary long_description metadata from metadata.rb
+- Remove unnecessary recipe metadata from metadata.rb
+
 ## v1.1.0 (2019-08-08)
 
 - Migrate to circleci 2 orb
