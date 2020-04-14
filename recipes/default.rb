@@ -133,7 +133,6 @@ if node['reprepro']['enable_repository_on_host']
 
   apt_repository 'reprepro' do
     uri "file://#{node['reprepro']['repo_dir']}"
-    distribution node['lsb']['codename']
     components ['main']
   end
 end
