@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the reprepro cookbook.
 
 ## UNRELEASED
 
+- resolved cookstyle error: recipes/default.rb:26:22 convention: `Style/HashEachMethods`
 - Require Chef Infra Client 14+ and remove the need for the build-essential cookbook
 - Remove unnecessary long_description metadata from metadata.rb
 - Remove unnecessary recipe metadata from metadata.rb

@@ -23,7 +23,7 @@ build_essential 'compilation tools'
 unless node['reprepro']['disable_databag']
   begin
     apt_repo = data_bag_item('reprepro', 'main')
-    node['reprepro'].keys.each do |key|
+    node['reprepro'].each_key do |key|
       next if key.to_sym == :pgp
       # NOTE: Use #key? so data bags can nil out existing values
       node.default['reprepro'][key] = apt_repo[key] if apt_repo.key?(key)
