@@ -2,8 +2,9 @@
 
 This file is used to list changes made in each version of the reprepro cookbook.
 
-## UNRELEASED
+## 2.0.0 (2020-05-05)
 
+- Minimum Chef version 14
 - resolved cookstyle error: recipes/default.rb:26:22 convention: `Style/HashEachMethods`
 - Require Chef Infra Client 14+ and remove the need for the build-essential cookbook
 - Remove unnecessary long_description metadata from metadata.rb
