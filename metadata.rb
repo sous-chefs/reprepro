@@ -6,7 +6,7 @@ description       'Installs/Configures reprepro for an apt repository'
 source_url        'https://github.com/tas50/reprepro'
 issues_url        'https://github.com/tas50/reprepro/issues'
 chef_version      '>= 14.0'
-version           '2.0.1'
+version           '2.0.2'
 
 # Doesn't make sense to indicate support for non Debian platforms!
 supports 'ubuntu'
