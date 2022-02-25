@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the reprepro cookbook.
 
 ## Unreleased
 
+- resolved cookstyle error: .foodcritic:3:7 convention: `Layout/TrailingEmptyLines`
 ## 2.0.3 - *2022-02-08*
 
 - Remove delivery folder
