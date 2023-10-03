@@ -3,12 +3,11 @@ maintainer        'Sous Chefs'
 maintainer_email  'help@sous-chefs.org'
 license           'Apache-2.0'
 description       'Installs/Configures reprepro for an apt repository'
-source_url        'https://github.com/tas50/reprepro'
-issues_url        'https://github.com/tas50/reprepro/issues'
-chef_version      '>= 14.0'
+source_url        'https://github.com/sous-chefs/reprepro'
+issues_url        'https://github.com/sous-chefs/reprepro/issues'
+chef_version      '>= 15.0'
 version           '2.0.5'
 
-# Doesn't make sense to indicate support for non Debian platforms!
 supports 'ubuntu'
 supports 'debian'
 

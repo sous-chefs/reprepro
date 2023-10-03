@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the reprepro cookbook.
 
 ## Unreleased
 
+- Migrate repo to Sous-Chefs
+
 ## 2.0.5 - *2023-10-03*
 
 - resolved cookstyle error: .foodcritic:3:7 convention: `Layout/TrailingEmptyLines`
@@ -83,7 +85,7 @@ This file is used to list changes made in each version of the reprepro cookbook.
 
 ## v0.4.0
 
-- **[COOK-3545](https://tickets.opscode.com/browse/COOK-3545)** - Support multiple distribution releases
+- Support multiple distribution releases
 
 ## v0.3.0
 

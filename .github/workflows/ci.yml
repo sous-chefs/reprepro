@@ -19,7 +19,6 @@ jobs:
 
   integration:
     needs: "lint-unit"
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
