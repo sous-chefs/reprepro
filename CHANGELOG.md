@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the reprepro cookbook.
 
-## Unreleased
+## 2.0.5 - *2023-10-03*
 
 - resolved cookstyle error: .foodcritic:3:7 convention: `Layout/TrailingEmptyLines`
 
