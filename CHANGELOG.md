@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the reprepro cookbook.
 
+## Unreleased
+
 ## 2.1.0 - *2023-10-03*
 
 - Migrate repo to Sous-Chefs
