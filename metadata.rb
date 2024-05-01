@@ -6,7 +6,7 @@ description       'Installs/Configures reprepro for an apt repository'
 source_url        'https://github.com/sous-chefs/reprepro'
 issues_url        'https://github.com/sous-chefs/reprepro/issues'
 chef_version      '>= 15.0'
-version           '2.1.1'
+version           '2.1.2'
 
 supports 'ubuntu'
 supports 'debian'
