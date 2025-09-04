@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the reprepro cookbook.
 
-## Unreleased
+## 2.1.3 - *2025-09-04*
 
 ## 2.1.2 - *2024-05-01*
 
