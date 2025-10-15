@@ -30,7 +30,7 @@ unless node['reprepro']['disable_databag']
     end
     node.default['reprepro']['pgp_email'] = apt_repo['pgp']['email']
     node.default['reprepro']['pgp_fingerprint'] = apt_repo['pgp']['fingerprint']
-  rescue Net::HTTPServerException
+  rescue Net::HTTPClientException
     Chef::Log.warn 'Data bag not found. Using default attribute settings!'
     include_recipe 'gpg'
   end
