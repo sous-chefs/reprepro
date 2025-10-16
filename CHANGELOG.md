@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the reprepro cookbook.
 
+## [2.1.4](https://github.com/sous-chefs/reprepro/compare/2.1.3...v2.1.4) (2025-10-16)
+
+
+### Bug Fixes
+
+* **ci:** Update workflows to use release pipeline ([#83](https://github.com/sous-chefs/reprepro/issues/83)) ([ade0f3a](https://github.com/sous-chefs/reprepro/commit/ade0f3a54c6f8f35b34b69e9531c4ec5d0514491))
+
 ## 2.1.0 - *2023-10-03*
 
 * Migrate repo to Sous-Chefs
