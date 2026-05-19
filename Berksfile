@@ -8,9 +8,11 @@ end
 
 metadata
 
-cookbook 'apache2', path: '../apache2'
-cookbook 'nginx', path: '../nginx'
-cookbook 'yum-epel', path: '../yum-epel'
+if File.directory?('../apache2') && File.directory?('../nginx') && File.directory?('../yum-epel')
+  cookbook 'apache2', path: '../apache2'
+  cookbook 'nginx', path: '../nginx'
+  cookbook 'yum-epel', path: '../yum-epel'
+end
 
 group :integration do
   cookbook 'test', path: 'test/cookbooks/test'
