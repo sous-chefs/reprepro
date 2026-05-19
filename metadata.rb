@@ -6,7 +6,7 @@ description       'Provides custom resources for configuring reprepro apt reposi
 source_url        'https://github.com/sous-chefs/reprepro'
 issues_url        'https://github.com/sous-chefs/reprepro/issues'
 chef_version      '>= 15.3'
-version           '2.1.4'
+version           '3.0.0'
 
 supports 'ubuntu', '>= 22.04'
 supports 'debian', '>= 12.0'

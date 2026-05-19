@@ -2,6 +2,22 @@
 
 This file is used to list changes made in each version of the reprepro cookbook.
 
+## [3.0.0](https://github.com/sous-chefs/reprepro/compare/v2.1.4...v3.0.0) (2026-05-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* migrate reprepro to custom resources ([#88](https://github.com/sous-chefs/reprepro/issues/88))
+
+### Features
+
+* migrate reprepro to custom resources ([#88](https://github.com/sous-chefs/reprepro/issues/88)) ([d9e3af3](https://github.com/sous-chefs/reprepro/commit/d9e3af3ce388790fbb0f7466149d52c503d223c0))
+
+
+### Bug Fixes
+
+* **ci:** Update workflows to use release pipeline ([#83](https://github.com/sous-chefs/reprepro/issues/83)) ([ade0f3a](https://github.com/sous-chefs/reprepro/commit/ade0f3a54c6f8f35b34b69e9531c4ec5d0514491))
+
 ## [2.1.4](https://github.com/sous-chefs/reprepro/compare/2.1.3...v2.1.4) (2025-10-16)
 
 
