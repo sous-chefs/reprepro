@@ -4,7 +4,7 @@ control 'reprepro-nginx-01' do
   impact 1.0
   title 'nginx serves the repository path'
 
-  describe package('nginx') do
+  describe package('nginx-full') do
     it { should be_installed }
   end
 
