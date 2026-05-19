@@ -2,3 +2,5 @@
 AllCops:
   Exclude:
     - 'Dangerfile'
+    - 'vendor/**/*'
+    - 'vendor/**/.*'

@@ -1,0 +1,7 @@
+---
+name: apache
+title: Apache reprepro repository tests
+maintainer: Sous Chefs
+license: Apache-2.0
+summary: Verifies the reprepro apache resource
+version: 1.0.0
