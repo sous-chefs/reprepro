@@ -8,7 +8,7 @@ control 'reprepro-nginx-01' do
     it { should be_installed }
   end
 
-  describe file('/etc/nginx/sites-available/apt_repo.conf') do
+  describe file('/etc/nginx/conf.http.d/apt_repo.conf') do
     it { should exist }
     its('content') { should match(%r{root /srv/apt;}) }
     its('content') { should match(/server_name apt.example.test;/) }
