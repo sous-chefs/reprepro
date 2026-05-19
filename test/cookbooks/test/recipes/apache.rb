@@ -2,6 +2,6 @@
 
 include_recipe 'test::default'
 
-reprepro_nginx 'apt_repo' do
+reprepro_apache 'apt_repo' do
   fqdn 'apt.example.test'
 end

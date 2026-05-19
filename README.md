@@ -6,7 +6,7 @@
 [![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Sets up an APT repository suitable for using the reprepro tool to manage distributions and components.
+Provides custom resources that set up an APT repository suitable for using the reprepro tool to manage distributions and components.
 
 See the reprepro documentation for more information about reprepro itself, including the man(1) page in the package [http://mirrorer.alioth.debian.org/](http://mirrorer.alioth.debian.org/)
 
@@ -26,85 +26,79 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 ### Chef
 
-- Chef 14+
+- Chef 15.3+
 
 ### Cookbooks
 
 - nginx
 - apache2
-- gpg
+You'll need to generate the PGP key separately and provide it as resource properties or manage it before converging the repository resource.
 
-You'll need to generate the PGP key separately and provide the data in the databag.
+## Resources
 
-## Attributes
+- [reprepro_repository](documentation/reprepro_repository.md)
+- [reprepro_apache](documentation/reprepro_apache.md)
+- [reprepro_nginx](documentation/reprepro_nginx.md)
+- [reprepro_deb](documentation/reprepro_deb.md)
 
-Attributes in this cookbook are set via the default recipe with data from the data bag. The following attributes are used, in the `reprepro` namespace.
+## Migration
 
-- `fqdn` - the fqdn that would go in sources.list
-- `description` - a description of the repository
-- `pgp_email` - the email address of the pgp key
-- `pgp_fingerprint` - the finger print of the pgp key
+This cookbook no longer ships recipes or attributes. See [migration.md](migration.md) for the breaking change from `node['reprepro']` attributes and `reprepro::default` recipes to resource properties.
 
-## Data Bag based repository
+## Repository
 
-Create a data bag to store the repository information. It should be named `reprepro`. The recipe uses the `main` data bag item.
+Create a repository by declaring `reprepro_repository` directly.
 
 ```ruby
-{
-  "id": "main",
-  "fqdn": "apt.example.com",
-  "repo_dir": "/srv/apt",
-  "incoming": "/srv/apt_incoming",
-  "description": "APT Repository for our packages.",
-  "codenames": [
-    "lucid", "hardy", "sid", "squeeze", "lenny"
-  ],
-  "allow": [
-    "unstable>sid", "stable>squeeze"
-  ],
-  "pgp": {
-    "email": "packages@example.com",
-    "fingerprint": "PGP Fingerprint for the key",
-    "public": "-----BEGIN PGP PUBLIC KEY BLOCK-----\n-----END PGP PUBLIC KEY BLOCK-----\n",
-    "private": "-----BEGIN PGP PRIVATE KEY BLOCK-----\n-----END PGP PRIVATE KEY BLOCK-----\n"
-  },
-  "pulls": {
-    "name": "sid",
-    "from": "sid",
-    "component": "main"
-  },
-  "architectures": [
-    "amd64","i386","all","source"
-  ]
-}
+reprepro_repository 'default' do
+  fqdn 'apt.example.com'
+  repo_dir '/srv/apt'
+  incoming '/srv/apt_incoming'
+  description 'APT Repository for our packages'
+  codenames %w(noble jammy)
+  allow ['unstable>sid', 'stable>squeeze']
+  pgp_email 'packages@example.com'
+  pgp_fingerprint 'PGP Fingerprint for the key'
+  pgp_public "-----BEGIN PGP PUBLIC KEY BLOCK-----\n-----END PGP PUBLIC KEY BLOCK-----\n"
+  pgp_private "-----BEGIN PGP PRIVATE KEY BLOCK-----\n-----END PGP PRIVATE KEY BLOCK-----\n"
+  pulls(
+    'name' => 'noble',
+    'from' => 'noble',
+    'component' => 'main'
+  )
+  architectures %w(amd64 i386 all source)
+end
 ```
 
-- `fqdn`: the fully qualified domain name of the apt server, used in
-- in the Apache vhost template and as the Origin in the distributions
-- configuration. Also saved to the node as
-- `node['reprepro']['fqdn]`.
-- `repo_dir`: directory on disk where reprepro will serve the packages
-- `incoming`: the incoming directory, used in the incoming
-- configuration.
-- `description`: description about the repository, also saved to the
-- node as `node['reprepro']['description']`.
-- `codenames`: array of codenames to set up for the repository, used
-- with allow for the Allow directive in the incoming configuration
-- `allow`: [optional] array of additional codenames to use in the incoming
-- configuration
-- `pgp`: hash of options for the pgp setup. the
-- `pgp['email']`: email address of the signing key
-- `pgp['fingerprint]`: fingerprint of the PGP key
-- `pgp['public]`: the public PGP key, should be a single line
-- (replace line endings with \n)
-- `pgp['private]`: the private PGP key, should be a single line
-- (replace line endings with \n)
-- `pulls`: hash used in the pulls configuration.
-- `architectures`: array of architectures to create in distributions configuration
+## Web Servers
 
-## Attribute based configuration
+Serve the repository with Apache or Nginx.
 
-Configuration of the repository can also be driven via attributes. The same keys available for the data bag are available via node attributes with the exception of the `pgp` hash. Using attribute based configuration will have a PGP key pair auto generated on the node when it is built.
+```ruby
+reprepro_apache 'apt_repo' do
+  fqdn 'apt.example.com'
+  repo_dir '/srv/apt'
+  pgp_email 'packages@example.com'
+end
+```
+
+```ruby
+reprepro_nginx 'apt_repo' do
+  fqdn 'apt.example.com'
+  repo_dir '/srv/apt'
+end
+```
+
+## Package Management
+
+Add or remove `.deb` files.
+
+```ruby
+reprepro_deb '/tmp/example_1.0.0_amd64.deb' do
+  distribution 'noble'
+  action :add
+end
+```
 
 ## Contributors
 

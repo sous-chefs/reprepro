@@ -3,14 +3,49 @@ driver:
   name: vagrant
 
 provisioner:
-  name: chef_zero
+  name: chef_infra
+  chef_license: accept-no-persist
+  multiple_converge: 2
+  enforce_idempotency: true
   deprecations_as_errors: true
 
+verifier:
+  name: inspec
+
 platforms:
-  - name: ubuntu-16.04
+  - name: debian-12
+  - name: debian-13
+  - name: ubuntu-22.04
+  - name: ubuntu-24.04
+
+x-run_lists:
+  default: &default_run_list
+    - recipe[test::default]
+  nginx: &nginx_run_list
+    - recipe[test::nginx]
+  apache: &apache_run_list
+    - recipe[test::apache]
+
+x-verifiers:
+  default: &default_verifier
+    inspec_tests:
+      - path: test/integration/default
+  nginx: &nginx_verifier
+    inspec_tests:
+      - path: test/integration/nginx
+  apache: &apache_verifier
+    inspec_tests:
+      - path: test/integration/apache
 
 suites:
   - name: default
-    run_list: test::default
+    run_list: *default_run_list
+    verifier: *default_verifier
+
   - name: nginx
-    run_list: test::nginx
+    run_list: *nginx_run_list
+    verifier: *nginx_verifier
+
+  - name: apache
+    run_list: *apache_run_list
+    verifier: *apache_verifier
