@@ -39,13 +39,16 @@ x-verifiers:
 
 suites:
   - name: default
+    named_run_list: default
     run_list: *default_run_list
     verifier: *default_verifier
 
   - name: nginx
+    named_run_list: nginx
     run_list: *nginx_run_list
     verifier: *nginx_verifier
 
   - name: apache
+    named_run_list: apache
     run_list: *apache_run_list
     verifier: *apache_verifier
