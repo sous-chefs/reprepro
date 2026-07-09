@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the reprepro cookbook.
 
+## [3.0.1](https://github.com/sous-chefs/reprepro/compare/v3.0.0...v3.0.1) (2026-07-09)
+
+
+### Bug Fixes
+
+* migrate to Policyfile ([#96](https://github.com/sous-chefs/reprepro/issues/96)) ([0326ecd](https://github.com/sous-chefs/reprepro/commit/0326ecd5191d24e129489a8e74db53e8189ed9f3))
+
 ## [3.0.0](https://github.com/sous-chefs/reprepro/compare/v2.1.4...v3.0.0) (2026-05-19)
 
 
